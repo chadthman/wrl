@@ -40,7 +40,6 @@ public class BookmarkServiceImpl implements BookmarkService {
                         .getSingleResult();
 
         if (count > 0) {
-        	log.error(">>Adding Bookmark : Failed Due To Duplicated Entry");
         	return StatusCode.ADD_DUPLICATE_BOOKMARK;
         }
 
@@ -51,34 +50,33 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     @Transactional
-    public void removeBookmarkById(Long id) {
+    public StatusCode removeBookmarkById(Long id) {
         log.debug(">Removing Bookmark (%s)", id);
         Bookmark bookmark = em.find(Bookmark.class, id);
+        
         if (bookmark == null) {
-            log.warn(">>Removing Bookmark : Failed Due To No Existing Entry (%s)", id);
-            return;
-        } else {
-            em.remove(bookmark);
-            log.debug(">>Removing Bookmark: Successfully Removed (%s)", id);
-        }
+            return StatusCode.REMOVE_NULL_BOOKMARK;
+        } 
+        
+        em.remove(bookmark);
+        return StatusCode.REMOVE_SUCCESS;
     }
     
     @Override
     @Transactional
-    public void toggleBookmarkCompleteById(Long id) {
+    public StatusCode toggleBookmarkCompleteById(Long id) {
     	 log.debug(">Toggling Bookmark Completed (%s)", id);
     	 Bookmark bookmark = em.find(Bookmark.class, id);
+    	 
     	 if (bookmark == null) {
-             log.warn(">>Toggling Bookmark Completed : Failed Due To No Existing Entry (%s)", id);
-             return;
-         } else {
-             Boolean completed = !bookmark.getCompleted();
-             bookmark.setCompleted(completed);
-             
-             em.persist(bookmark);
-             em.flush();
-             log.debug(">>Toggling Bookmark Completed: Successfully Toggled (%s)", id);
+    		 return StatusCode.TOGGLE_NULL_BOOKMARK;
          }
-    	
+    	 
+    	 Boolean completed = !bookmark.getCompleted();
+         bookmark.setCompleted(completed);
+         em.persist(bookmark);
+         em.flush();
+         
+         return StatusCode.TOGGLE_SUCCESS;
     }
 }

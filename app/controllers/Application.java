@@ -56,10 +56,19 @@ public class Application extends Controller {
     public Result removeBookmark(Long id) {
     	StatusCode status = bookmarkService.removeBookmarkById(id);
     	if (!status.getSuccess()) {
-    		 return badRequest(index.render(Form.form(models.BookmarkForm.class), bookmarkService.getAllBookmarks()));
-         }
+    		return badRequest(index.render(Form.form(models.BookmarkForm.class), bookmarkService.getAllBookmarks()));
+        }
 
     	 return redirect(routes.Application.index());
     }
+    
+    public Result toggleBookmarkComplete(Long id) {
+    	StatusCode status = bookmarkService.toggleBookmarkCompleteById(id);
 
+   	 	if (!status.getSuccess()) {
+   	 		return badRequest(index.render(Form.form(models.BookmarkForm.class), bookmarkService.getAllBookmarks()));
+   	 	}
+
+   	 	return redirect(routes.Application.index());
+    }
 }

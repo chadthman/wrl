@@ -51,6 +51,15 @@
                                		<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </a>
                             </button>
+                            @if(bookmark.getCompleted()) {
+                            	<button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top" title= "Mark as Unread">
+                            } else {
+                            	<button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Mark as Read Later">
+                            }
+                              		<a class="name" href="@routes.Application.toggleBookmarkComplete(bookmark.getId())">
+                              			<span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+			                    	</a>
+			                    </button>
                     	</td>
                     </tr>
                 }

@@ -5,7 +5,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import play.*;
-import play.mvc.*;
+import play.mvc.Http.RequestHeader;
+import play.mvc.Result;
+import play.mvc.Results;
+import play.libs.F.Promise;
+import views.html.pageNotFound;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +28,10 @@ public class Global extends GlobalSettings {
     @Override
     public void onStop(Application app) {
     	 log.info("APP Stop");
-    }   
+    }
     
-//    @Override
-//    public <A> A getControllerInstance(final Class<A> clazz) {
-//        BeanFactory context;
-//		return context.getBean(clazz);
-//    }
+    @Override
+    public Promise<Result> onHandlerNotFound(RequestHeader request) {
+    	return Promise.<Result>pure(Results.notFound(pageNotFound.render(request.path())));
+    }
 }

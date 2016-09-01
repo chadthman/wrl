@@ -31,7 +31,13 @@ public class Global extends GlobalSettings {
     }
     
     @Override
+    public <A> A getControllerInstance(Class<A> clazz) {
+        return context.getBean(clazz);
+    }
+
+    @Override
     public Promise<Result> onHandlerNotFound(RequestHeader request) {
     	return Promise.<Result>pure(Results.notFound(pageNotFound.render(request.path())));
     }
+
 }

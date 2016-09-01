@@ -12,8 +12,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-
 import org.springframework.transaction.annotation.Transactional;
+
+import status.StatusCode;
 
 @Named
 public class BookmarkServiceImpl implements BookmarkService {
@@ -31,7 +32,7 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     @Transactional
-    public void addBookmark(Bookmark bookmark) {
+    public StatusCode addBookmark(Bookmark bookmark) {
     	log.debug(">Adding Bookmark");
    
         Long count = (Long)em.createQuery("SELECT COUNT(i) FROM Bookmark i WHERE i.url = :url")
@@ -40,11 +41,12 @@ public class BookmarkServiceImpl implements BookmarkService {
 
         if (count > 0) {
         	log.error(">>Adding Bookmark : Failed Due To Duplicated Entry");
-        	return;
+        	return StatusCode.ADD_DUPLICATE_BOOKMARK;
         }
 
         em.persist(bookmark);
         em.flush();
+        return StatusCode.ADD_SUCCESS;
     }
 
     @Override

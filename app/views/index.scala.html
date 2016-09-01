@@ -10,7 +10,7 @@
         	<div class="panel-heading">
   			</div>
         	<div class="panel-body">
-        		@form(action = routes.Application.index(), 'class -> "") {
+        		@form(action = routes.Application.addBookmark(), 'class -> "") {
             	@inputText(itemForm("url"), '_label -> "URL", 'class -> "form-control")
             	@textarea(itemForm("desc"), 'rows -> 6, '_label -> "Description", 'class -> "form-control desc-form")
             	<br><br>

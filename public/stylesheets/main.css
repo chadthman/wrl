@@ -1,3 +1,8 @@
 body {
 	padding-top:30px;
 }
+
+td {
+	word-break: break-all;
+    word-break: break-word;
+}

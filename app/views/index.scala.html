@@ -12,38 +12,23 @@
 	new PrettyTime().format(date)
 }
 
-@main("WRL: Will Read Later") {
-	<div class="col-md-3">
-    	<div class="panel panel-default">
-        	<div class="panel-heading">
-  			</div>
-        	<div class="panel-body">
-        		@form(action = routes.Application.addBookmark(), 'class -> "") {
-            	@inputText(itemForm("url"), '_label -> "URL", 'class -> "form-control")
-            	@textarea(itemForm("desc"), 'rows -> 6, '_label -> "Description", 'class -> "form-control desc-form")
-            	<br><br>
-               	<input type="submit" class="btn btn-primary submit-button" value="Add Bookmark"/>
-        		}
-        	</div>
-       	</div>
-	</div>
-	
+@main("WRL: Will Read Later") {	
 	<div class="col-md-9">
     	<div class="panel panel-default">
         	<div class="panel-heading"></div>
         	<table class="table">
             	<thead class="thead-inverse">
-                <tr>
-                    <th class="col-md-2"><b>Created</b></th>
-                    <th class="col-md-4"><b>URL</b></th>
-                    <th class="col-md-5"><b>Description</b></th>
-                    <th class="col-md-1"><b>Actions</b></th>
-                </tr>
-            </thead>
+                	<tr>
+                    	<th class="col-md-2"><b>Created</b></th>
+			            <th class="col-md-4"><b>URL</b></th>
+			            <th class="col-md-5"><b>Description</b></th>
+			            <th class="col-md-1"><b>Actions</b></th>
+                	</tr>
+            	</thead>
             @if(!bookmarks.isEmpty()) {
             	<tbody>
                 @for(bookmark<- bookmarks){ 
-                	<tr align="left">
+                	<tr class="left">
                     	<td>@prettyTime(bookmark.getCreated())</td>
                     	<td><a href="@bookmark.getUrl()" target="_blank">@bookmark.getUrl()</a> 
                     		@if(bookmark.getCompleted()) {
@@ -79,6 +64,21 @@
             	<h1 class="text-center">No Entries yet!</h1>
             </p>
         }
-    </div>
-</div>
+    	</div>
+	</div>
+
+	<div class="col-md-3">
+    	<div class="panel panel-default">
+        	<div class="panel-heading">
+  			</div>
+        	<div class="panel-body">
+        		@form(action = routes.Application.addBookmark(), 'class -> "") {
+            	@inputText(itemForm("url"), '_label -> "URL", 'class -> "form-control")
+            	@textarea(itemForm("desc"), 'rows -> 6, '_label -> "Description", 'class -> "form-control desc-form")
+            	<br><br>
+               	<input type="submit" class="btn btn-primary submit-button" value="Add Bookmark"/>
+        		}
+        	</div>
+       	</div>
+	</div>
 }

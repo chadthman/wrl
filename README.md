@@ -11,11 +11,11 @@ Required:
 	
 Run: 
 - Create Database
-    ```sql
-    CREATE DATABASE wrl;
-    ```
+```sql
+CREATE DATABASE wrl;
+```
 - Compile and Run Play Application
-    ```bash
-    $ sbt run
-    ```
+```bash
+$ sbt run
+```
     

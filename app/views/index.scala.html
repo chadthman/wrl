@@ -45,9 +45,9 @@
                                 </a>
                             </button>
                             @if(bookmark.getCompleted()) {
-                            	<button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top" title= "Mark as Unread">
+                            	<button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top" title= "Mark as Read Later">
                             } else {
-                            	<button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Mark as Read Later">
+                            	<button type="button" class="close" aria-label="Close" data-toggle="tooltip" data-placement="top" title="Mark as Read">
                             }
                               		<a class="name" href="@routes.Application.toggleBookmarkComplete(bookmark.getId())">
                               			<span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>

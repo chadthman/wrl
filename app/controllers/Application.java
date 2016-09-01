@@ -28,7 +28,6 @@ public class Application extends Controller {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 	
     public Result index() {
-    	log.debug(">index()");
     	return ok(index.render(Form.form(models.BookmarkForm.class), bookmarkService.getAllBookmarks()));
     }
     
@@ -45,30 +44,36 @@ public class Application extends Controller {
      
         if (!status.getSuccess()) {
         	if (status == StatusCode.ADD_DUPLICATE_BOOKMARK) {
+        		log.error("{}", status.getDescription());
         		form.reject("url", status.toString());
         	}
-        	
         	return badRequest(index.render(form, bookmarkService.getAllBookmarks()));
         }
+        
+        log.info("{}", status.getDescription());
         return redirect(routes.Application.index());        
     }
     
     public Result removeBookmark(Long id) {
     	StatusCode status = bookmarkService.removeBookmarkById(id);
     	if (!status.getSuccess()) {
+    		log.info("{}, id = {}", status.getDescription(), id);
     		return badRequest(index.render(Form.form(models.BookmarkForm.class), bookmarkService.getAllBookmarks()));
         }
-
-    	 return redirect(routes.Application.index());
+    	
+    	log.info("{}, id = {}", status.getDescription(), id);
+    	return redirect(routes.Application.index());
     }
     
     public Result toggleBookmarkComplete(Long id) {
     	StatusCode status = bookmarkService.toggleBookmarkCompleteById(id);
 
    	 	if (!status.getSuccess()) {
+   	 		log.info("{}, id = {}", status.getDescription(), id);
    	 		return badRequest(index.render(Form.form(models.BookmarkForm.class), bookmarkService.getAllBookmarks()));
    	 	}
-
+   	 	
+   	 	log.info("{}, id = {}", status.getDescription(), id);
    	 	return redirect(routes.Application.index());
     }
 }

@@ -4,6 +4,14 @@
 @import helper.inputText
 @import helper.textarea
 
+@import services.BookmarkService;
+@import org.ocpsoft.prettytime.PrettyTime;
+@import java.util.Date;
+
+@prettyTime(date: Date) = @{
+	new PrettyTime().format(date)
+}
+
 @main("WRL: Will Read Later") {
 	<div class="col-md-3">
     	<div class="panel panel-default">
@@ -26,9 +34,9 @@
         	<table class="table">
             	<thead class="thead-inverse">
                 <tr>
-                    <th class="col-md-3"><b>Created</b></th>
+                    <th class="col-md-2"><b>Created</b></th>
                     <th class="col-md-4"><b>URL</b></th>
-                    <th class="col-md-4"><b>Description</b></th>
+                    <th class="col-md-5"><b>Description</b></th>
                     <th class="col-md-1"><b>Actions</b></th>
                 </tr>
             </thead>
@@ -36,7 +44,7 @@
             	<tbody>
                 @for(bookmark<- bookmarks){ 
                 	<tr align="left">
-                    	<td>@bookmark.getCreated()</td>
+                    	<td>@prettyTime(bookmark.getCreated())</td>
                     	<td><a href="@bookmark.getUrl()" target="_blank">@bookmark.getUrl()</a> 
                     		@if(bookmark.getCompleted()) {
                         		<span class="label label-danger">Read</span> 

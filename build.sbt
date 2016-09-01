@@ -18,5 +18,6 @@ libraryDependencies ++= Seq(
   "org.hibernate" % "hibernate-entitymanager" % "4.3.6.Final",
   "mysql" % "mysql-connector-java" % "5.1.35",
   "javax.inject" % "javax.inject" % "1",
-  "org.slf4j" % "slf4j-api" % "1.7.21"
+  "org.slf4j" % "slf4j-api" % "1.7.21",
+  "org.ocpsoft.prettytime" % "prettytime" % "3.2.7.Final"
 )

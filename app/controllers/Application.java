@@ -73,7 +73,7 @@ public class Application extends Controller {
    	 		return badRequest(index.render(Form.form(models.BookmarkForm.class), bookmarkService.getAllBookmarks()));
    	 	}
    	 	
-   	 	log.info("{} (id = {})", status.getDescription(), id);
+   	 	log.info("{} (id = {}) ", status.getDescription(), id);
    	 	return redirect(routes.Application.index());
     }
 }

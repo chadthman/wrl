@@ -15,11 +15,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "bookmark")
 public class Bookmark {
+	
     public static final int MIN_NAME_LEN = 2;
     //just a simple pattern
     public static final String URL_VALIDATION_PATTERN = "^(https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
     
-  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -38,7 +38,6 @@ public class Bookmark {
     private Date created;
     @Column(name = "updated")
     private Date updated;
-    
     
     public Bookmark() {}
 
